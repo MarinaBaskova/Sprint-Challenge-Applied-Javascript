@@ -1,32 +1,55 @@
 class Carousel {
-    constructor(item){
-        this.item = item;
-        this.rightBtn = item.querySelector('.right-button');
-        this.leftBtn = item.querySelector('.left-button');
-        this.images = Array.from(item.querySelectorAll('.img'));
+    constructor(item) {
+
+    this.item = item;
+    this.rightBtn = item.querySelector('.right-button');
+    this.leftBtn = item.querySelector('.left-button');
+
+    this.images = Array.from(item.querySelectorAll('img'));
+
+    this.currentIndex = 0;
+    this.defaultImage = this.images[this.currentIndex];
+    this.defaultImage.style.display = "block";
+
+    //Events on BTN
+    this.rightBtn.addEventListener('click', () => this.showNextImg());
+
+    this.leftBtn.addEventListener('click', () => this.showBeforeImg());
+
+    }
+
+showNextImg() {
+
+    let allImages = document.querySelectorAll('.carousel img');
+
+    allImages.forEach(function (img) {
+        img.style.display = 'none';
+    });
+
+    this.currentIndex += 1;
+
+    if (this.currentIndex > allImages.length - 1) {
         this.currentIndex = 0;
-        //Events on BTN
-        this.rightBtn.addEventListener('click', () => this.showNextImg());
-        this.leftBtn.addEventListener('click', () => this.showBeforeImg());
     }
 
-    showNextImg() {
-
-    }
-
-    showBeforeImg() {
-        
-    }
-
+    allImages[this.currentIndex].style.display = 'block';
 }
 
-class CarouselImage {
-    constructor(item){
-        
+showBeforeImg() {
+    let allImages = document.querySelectorAll('.carousel img');
+
+    allImages.forEach(function (img) {
+    img.style.display = 'none';
+    });
+
+    this.currentIndex -= 1;
+
+    if (this.currentIndex < 0) {
+        this.currentIndex = 3;
+    }
+    allImages[this.currentIndex].style.display = 'block';
     }
 }
-
-let carousel = document.querySelector();
 
 /* If You've gotten this far, you're on your own! Although we will give you some hints:
     1. You will need to grab a reference to the carousel, and in it grab the left and right buttons
@@ -37,4 +60,5 @@ let carousel = document.querySelector();
     6. Have fun!
 */
 
-let crousel = new Carousel (document.querySelector('.carousel'))
+let carousel = new Carousel (document.querySelector('.carousel'));
+
